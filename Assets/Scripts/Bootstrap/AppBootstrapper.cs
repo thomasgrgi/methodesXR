@@ -6,6 +6,7 @@ public class AppBootstrapper : MonoBehaviour
     public SolarSystemConfig config;
 
     public PlanetView[] planets;
+    public TimeController timeController;
 
     TimeModel timeModel;
     PlanetSystemController controller;
@@ -24,6 +25,8 @@ public class AppBootstrapper : MonoBehaviour
             planets
         );
 
+        timeController.Init(timeModel);
         timeModel.SetTime(DateTime.Now);
+        controller.UpdateTrajectories(DateTime.Now);
     }
 }
