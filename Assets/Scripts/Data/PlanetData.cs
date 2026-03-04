@@ -60,12 +60,15 @@ public static class PlanetData
         float incl = GetKeplerParameter(p, KeplerParameter.I)[0]
                     + (GetKeplerParameter(p, KeplerParameter.I)[1] * T);
 
-        return new Vector3((Mathf.Cos(Mathf.Deg2Rad * peri) * Mathf.Cos(Mathf.Deg2Rad * longNode) - Mathf.Sin(Mathf.Deg2Rad * peri) * Mathf.Sin(Mathf.Deg2Rad * longNode) * Mathf.Cos(Mathf.Deg2Rad * incl)) * x_prime 
-            + (-Mathf.Sin(Mathf.Deg2Rad * peri) * Mathf.Cos(Mathf.Deg2Rad * longNode) - Mathf.Cos(Mathf.Deg2Rad * peri) * Mathf.Sin(Mathf.Deg2Rad * longNode) * Mathf.Cos(Mathf.Deg2Rad * incl)) * y_prime,
-            (Mathf.Cos(Mathf.Deg2Rad * peri) * Mathf.Sin(Mathf.Deg2Rad * longNode) + Mathf.Sin(Mathf.Deg2Rad * peri) * Mathf.Cos(Mathf.Deg2Rad * longNode) * Mathf.Cos(Mathf.Deg2Rad * incl)) * x_prime
-            + (-Mathf.Sin(Mathf.Deg2Rad * peri) * Mathf.Sin(Mathf.Deg2Rad * longNode) + Mathf.Cos(Mathf.Deg2Rad * peri) * Mathf.Cos(Mathf.Deg2Rad * longNode) * Mathf.Cos(Mathf.Deg2Rad * incl)) * y_prime,
-            Mathf.Sin(Mathf.Deg2Rad * peri) * Mathf.Sin(Mathf.Deg2Rad * incl) * x_prime
-            + Mathf.Cos(Mathf.Deg2Rad * peri) * Mathf.Sin(Mathf.Deg2Rad * incl) * y_prime);
+        float x = (Mathf.Cos(Mathf.Deg2Rad * peri) * Mathf.Cos(Mathf.Deg2Rad * longNode) - Mathf.Sin(Mathf.Deg2Rad * peri) * Mathf.Sin(Mathf.Deg2Rad * longNode) * Mathf.Cos(Mathf.Deg2Rad * incl)) * x_prime 
+            + (-Mathf.Sin(Mathf.Deg2Rad * peri) * Mathf.Cos(Mathf.Deg2Rad * longNode) - Mathf.Cos(Mathf.Deg2Rad * peri) * Mathf.Sin(Mathf.Deg2Rad * longNode) * Mathf.Cos(Mathf.Deg2Rad * incl)) * y_prime;
+        float y = (Mathf.Cos(Mathf.Deg2Rad * peri) * Mathf.Sin(Mathf.Deg2Rad * longNode) + Mathf.Sin(Mathf.Deg2Rad * peri) * Mathf.Cos(Mathf.Deg2Rad * longNode) * Mathf.Cos(Mathf.Deg2Rad * incl)) * x_prime
+            + (-Mathf.Sin(Mathf.Deg2Rad * peri) * Mathf.Sin(Mathf.Deg2Rad * longNode) + Mathf.Cos(Mathf.Deg2Rad * peri) * Mathf.Cos(Mathf.Deg2Rad * longNode) * Mathf.Cos(Mathf.Deg2Rad * incl)) * y_prime;
+        float z = Mathf.Sin(Mathf.Deg2Rad * peri) * Mathf.Sin(Mathf.Deg2Rad * incl) * x_prime
+            + Mathf.Cos(Mathf.Deg2Rad * peri) * Mathf.Sin(Mathf.Deg2Rad * incl) * y_prime;
+        return new Vector3(x, z, y); // MODIFICATION --> Système de coordonnées Unity
+            
+            
     }
 
     private static float[] GetKeplerParameter(Planet planet, KeplerParameter param)
